@@ -22,10 +22,11 @@ def hello_name(name):  # function decorator
 
 @app.route('/soma', methods=['POST'])  # route decorator with  post method
 def soma():  # function decorator
-    # receive data from request on json format
+    # make a request to receive data in json format
     dados = json.loads(request.data)
-    # return jsonify with the sum of the two numbers
-    return jsonify({'Soma': dados})
+    total = sum(dados['valores'])  # sum the values of the array
+    # jsonify converts a Python object into a JSON string
+    return jsonify({'Soma': total})
 
 
 if __name__ == '__main__':  # if this file is run directly

@@ -20,13 +20,15 @@ def hello_name(name):  # function decorator
     return jsonify({'O nome é': name})
 
 
-@app.route('/soma', methods=['POST'])  # route decorator with  post method
-def soma():  # function decorator
-    # make a request to receive data in json format
-    dados = json.loads(request.data)
-    total = sum(dados['valores'])  # sum the values of the array
-    # jsonify converts a Python object into a JSON string
-    return jsonify({'Soma': total})
+# route decorator with  post method
+@app.route('/soma', methods=['POST', 'GET'])
+def soma():
+    if request.method == 'POST':
+        dados = json.loads(request.data)
+        total = sum(dados['valores'])
+    elif request.method == 'GET':
+        total = 1
+        return jsonify({'Soma': total})
 
 
 if __name__ == '__main__':  # if this file is run directly
